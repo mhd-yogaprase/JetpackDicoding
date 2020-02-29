@@ -17,11 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dicoding.picodiploma.jetpackdicoding.R;
 import com.dicoding.picodiploma.jetpackdicoding.data.MovieEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieFragment extends Fragment {
-    private List<MovieEntity> listMovie = new ArrayList<>();
     private RecyclerView rvContent;
     private ProgressBar progressBar;
 

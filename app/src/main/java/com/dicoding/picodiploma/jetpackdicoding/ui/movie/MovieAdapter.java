@@ -35,8 +35,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        MovieEntity movieEntity = listMovies.get(position);
-        holder.bind(movieEntity);
+        MovieEntity movie = listMovies.get(position);
+        holder.bind(movie);
     }
 
     @Override
@@ -59,12 +59,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             imgPoster = itemView.findViewById(R.id.img_poster);
         }
 
-        void bind(MovieEntity movieEntity){
-            tvTitle.setText(movieEntity.getTitle());
-            tvDate.setText(movieEntity.getReleaseDate());
-            tvOverview.setText(movieEntity.getOverview());
+        void bind(MovieEntity movie){
+            tvTitle.setText(movie.getTitle());
+            tvDate.setText(movie.getReleaseDate());
+            tvOverview.setText(movie.getOverview());
             Glide.with(itemView.getContext())
-                    .load(movieEntity.getPoster())
+                    .load(itemView.getResources().getIdentifier(movie.getPoster(), "drawable", itemView.getContext().getPackageName()))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(imgPoster);
         }

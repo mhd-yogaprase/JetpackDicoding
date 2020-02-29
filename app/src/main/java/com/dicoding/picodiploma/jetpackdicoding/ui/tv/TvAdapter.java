@@ -65,7 +65,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
             tvDate.setText(tv.getReleaseDate());
             tvOverview.setText(tv.getOverview());
             Glide.with(itemView.getContext())
-                    .load(tv.getPoster())
+                    .load(itemView.getResources().getIdentifier(tv.getPoster(),"drawable", itemView.getContext().getPackageName()))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(imgPoster);
         }
