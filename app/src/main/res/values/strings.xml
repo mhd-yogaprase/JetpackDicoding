@@ -1,12 +1,16 @@
 <resources>
-    <string name="app_name">JetpackDicoding</string>
+    <string name="app_name">Jetpack Dicoding</string>
 
-    <string name="tab_movie">Movies</string>
+    <string name="tab_movie">Movie</string>
     <string name="tab_tv">TV Show</string>
 
-    <string name="movie_status">Status</string>
-    <string name="movie_runtime">Runtime</string>
-    <string name="movie_language">Original Language</string>
-    <string name="movie_overview">Overview</string>
-    <string name="desc_img_poster">this is poster of the content</string>
+    <string name="title_detail_overview">Overview</string>
+    <string name="title_detail_genre">Genre :</string>
+    <string name="title_detail_runtime">Runtime :</string>
+    <string name="title_detail_date">Release Date :</string>
+    <string name="title_activity_detail_content">Detail Information</string>
+
+    <string name="desc_movie_img_poster">Poster of the movie or tv show</string>
+    <string name="desc_movie_container">this is container to display detail about the movie or tv show</string>
+    <string name="desc_img_poster">this is poster of the movie or tv show</string>
 </resources>

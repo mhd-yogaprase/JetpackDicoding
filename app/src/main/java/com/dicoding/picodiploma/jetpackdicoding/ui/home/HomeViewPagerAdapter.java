@@ -2,6 +2,7 @@ package com.dicoding.picodiploma.jetpackdicoding.ui.home;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -19,11 +20,12 @@ public class HomeViewPagerAdapter extends FragmentPagerAdapter {
     private final int[] TAB_TITLES = new int[]{R.string.tab_movie, R.string.tab_tv};
     private final Context mContext;
 
-    public HomeViewPagerAdapter(Context context, FragmentManager fm) {
+    HomeViewPagerAdapter(Context context, FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mContext = context;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         switch (position) {

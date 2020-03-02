@@ -4,15 +4,20 @@ public class TvEntity {
     private String id;
     private String name;
     private String overview;
-    private String releaseDate;
+    private String firstAirDate;
+    private String originalLanguage;
+    private String genre;
     private String poster;
     private String runtime;
 
-    public TvEntity(String id, String name, String overview, String releaseDate, String poster, String runtime) {
+    public TvEntity(String id, String name, String overview, String firstAirDate,
+                    String originalLanguage, String genre, String poster, String runtime) {
         this.id = id;
         this.name = name;
         this.overview = overview;
-        this.releaseDate = releaseDate;
+        this.firstAirDate = firstAirDate;
+        this.originalLanguage = originalLanguage;
+        this.genre = genre;
         this.poster = poster;
         this.runtime = runtime;
     }
@@ -29,39 +34,31 @@ public class TvEntity {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getOverview() {
         return overview;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
+    public String getFirstAirDate() {
+        return firstAirDate;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getOriginalLanguage() {
+        return originalLanguage;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+
+    public String getGenre() {
+        return genre;
     }
+
 
     public String getPoster() {
         return poster;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
 
     public String getRuntime() {
         return runtime;
     }
 
-    public void setRuntime(String runtime) {
-        this.runtime = runtime;
-    }
 }

@@ -5,14 +5,19 @@ public class MovieEntity {
     private String title;
     private String overview;
     private String releaseDate;
+    private String originalLanguage;
+    private String genre;
     private String poster;
     private String runtime;
 
-    public MovieEntity(String id, String title, String overview, String releaseDate, String poster, String runtime) {
+    public MovieEntity(String id, String title, String overview, String releaseDate,
+                       String originalLanguage, String genre, String poster, String runtime) {
         this.id = id;
         this.title = title;
         this.overview = overview;
         this.releaseDate = releaseDate;
+        this.originalLanguage = originalLanguage;
+        this.genre = genre;
         this.poster = poster;
         this.runtime = runtime;
     }
@@ -29,39 +34,28 @@ public class MovieEntity {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getOverview() {
         return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
     }
 
     public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public String getOriginalLanguage() {
+        return originalLanguage;
+    }
+
+    public String getGenre() {
+        return genre;
     }
 
     public String getPoster() {
         return poster;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
     public String getRuntime() {
         return runtime;
     }
 
-    public void setRuntime(String runtime) {
-        this.runtime = runtime;
-    }
 }

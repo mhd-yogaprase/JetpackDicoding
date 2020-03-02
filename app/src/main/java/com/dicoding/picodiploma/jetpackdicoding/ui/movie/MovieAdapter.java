@@ -1,5 +1,6 @@
 package com.dicoding.picodiploma.jetpackdicoding.ui.movie;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.picodiploma.jetpackdicoding.R;
 import com.dicoding.picodiploma.jetpackdicoding.data.MovieEntity;
+import com.dicoding.picodiploma.jetpackdicoding.ui.detail.movie.DetailMovieActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +61,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             imgPoster = itemView.findViewById(R.id.img_poster);
         }
 
-        void bind(MovieEntity movie){
+        void bind(final MovieEntity movie){
             tvTitle.setText(movie.getTitle());
             tvDate.setText(movie.getReleaseDate());
             tvOverview.setText(movie.getOverview());
@@ -67,6 +69,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     .load(itemView.getResources().getIdentifier(movie.getPoster(), "drawable", itemView.getContext().getPackageName()))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(imgPoster);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), DetailMovieActivity.class);
+                    intent.putExtra(DetailMovieActivity.EXTRA_DETAIL_MOVIE, movie.getId());
+                    itemView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }

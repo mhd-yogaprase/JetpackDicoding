@@ -18,6 +18,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity android:name=".ui.detail.movie.DetailMovieActivity"
+            android:label="@string/title_activity_detail_content"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.home.HomeActivity"/>
+        </activity>
+
+        <activity android:name=".ui.detail.tv.DetailTvActivity"
+            android:label="@string/title_activity_detail_content"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.home.HomeActivity"/>
+        </activity>
+
+    </application>
 </manifest>

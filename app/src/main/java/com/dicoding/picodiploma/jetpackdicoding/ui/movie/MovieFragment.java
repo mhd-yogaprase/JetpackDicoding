@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,21 +19,19 @@ import com.dicoding.picodiploma.jetpackdicoding.data.MovieEntity;
 import java.util.List;
 
 public class MovieFragment extends Fragment {
-    private RecyclerView rvContent;
-    private ProgressBar progressBar;
+    private RecyclerView rvMovie;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_content, container, false);
+        return inflater.inflate(R.layout.fragment_movie, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        progressBar = view.findViewById(R.id.progress_bar);
-        rvContent = view.findViewById(R.id.rv_content);
+        rvMovie = view.findViewById(R.id.rv_movie);
     }
 
     @Override
@@ -47,8 +44,8 @@ public class MovieFragment extends Fragment {
         MovieAdapter movieAdapter = new MovieAdapter();
         movieAdapter.setMoviesData(listMovie);
 
-        rvContent.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvContent.setHasFixedSize(true);
-        rvContent.setAdapter(movieAdapter);
+        rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvMovie.setHasFixedSize(true);
+        rvMovie.setAdapter(movieAdapter);
     }
 }

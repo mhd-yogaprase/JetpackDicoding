@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,21 +19,19 @@ import com.dicoding.picodiploma.jetpackdicoding.data.TvEntity;
 import java.util.List;
 
 public class TvFragment extends Fragment {
-    private RecyclerView rvContent;
-    private ProgressBar progressBar;
+    private RecyclerView rvTv;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_content, container, false);
+        return inflater.inflate(R.layout.fragment_tv, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rvContent = view.findViewById(R.id.rv_content);
-        progressBar = view.findViewById(R.id.progress_bar);
+        rvTv = view.findViewById(R.id.rv_tv);
     }
 
     @Override
@@ -47,8 +44,8 @@ public class TvFragment extends Fragment {
         TvAdapter tvAdapter = new TvAdapter();
         tvAdapter.setTvData(listTv);
 
-        rvContent.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvContent.setHasFixedSize(true);
-        rvContent.setAdapter(tvAdapter);
+        rvTv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvTv.setHasFixedSize(true);
+        rvTv.setAdapter(tvAdapter);
     }
 }

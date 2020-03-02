@@ -1,5 +1,6 @@
 package com.dicoding.picodiploma.jetpackdicoding.ui.tv;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.picodiploma.jetpackdicoding.R;
 import com.dicoding.picodiploma.jetpackdicoding.data.TvEntity;
+import com.dicoding.picodiploma.jetpackdicoding.ui.detail.tv.DetailTvActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,14 +62,23 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
             imgPoster = itemView.findViewById(R.id.img_poster);
         }
 
-        void bind(TvEntity tv){
+        void bind(final TvEntity tv){
             tvName.setText(tv.getName());
-            tvDate.setText(tv.getReleaseDate());
+            tvDate.setText(tv.getFirstAirDate());
             tvOverview.setText(tv.getOverview());
             Glide.with(itemView.getContext())
                     .load(itemView.getResources().getIdentifier(tv.getPoster(),"drawable", itemView.getContext().getPackageName()))
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(imgPoster);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), DetailTvActivity.class);
+                    intent.putExtra(DetailTvActivity.EXTRA_DETAIL_TV, tv.getId());
+                    itemView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }
