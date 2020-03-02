@@ -2,7 +2,6 @@ package com.dicoding.picodiploma.jetpackdicoding.ui.home;
 
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
-import androidx.viewpager.widget.ViewPager;
 
 import com.dicoding.picodiploma.jetpackdicoding.R;
 import com.dicoding.picodiploma.jetpackdicoding.data.MovieEntity;
@@ -21,13 +20,10 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.junit.Assert.*;
 
 public class HomeActivityTest {
     private ArrayList<MovieEntity> dummyMovie = DataDummy.generateDummyMovie();
     private ArrayList<TvEntity> dummyTv = DataDummy.generateDummyTv();
-
-
 
     @Rule
     public ActivityTestRule activityRule = new ActivityTestRule<>(HomeActivity.class);
@@ -52,6 +48,12 @@ public class HomeActivityTest {
         onView(withId(R.id.tv_title)).check(matches(withText(dummyMovie.get(0).getTitle())));
         onView(withId(R.id.tv_date)).check(matches(isDisplayed()));
         onView(withId(R.id.tv_date)).check(matches(withText(dummyMovie.get(0).getReleaseDate())));
+        onView(withId(R.id.tv_time)).check(matches(isDisplayed()));
+        onView(withId(R.id.tv_time)).check(matches(withText(dummyMovie.get(0).getRuntime())));
+        onView(withId(R.id.tv_genre)).check(matches(isDisplayed()));
+        onView(withId(R.id.tv_genre)).check(matches(withText(dummyMovie.get(0).getGenre())));
+        onView(withId(R.id.tv_overview)).check(matches(isDisplayed()));
+        onView(withId(R.id.tv_overview)).check(matches(withText(dummyMovie.get(0).getOverview())));
     }
 
     @Test
@@ -62,5 +64,12 @@ public class HomeActivityTest {
         onView(withId(R.id.tv_title)).check(matches(withText(dummyTv.get(0).getName())));
         onView(withId(R.id.tv_date)).check(matches(isDisplayed()));
         onView(withId(R.id.tv_date)).check(matches(withText(dummyTv.get(0).getFirstAirDate())));
+        onView(withId(R.id.tv_time)).check(matches(isDisplayed()));
+        onView(withId(R.id.tv_time)).check(matches(withText(dummyTv.get(0).getRuntime())));
+        onView(withId(R.id.tv_genre)).check(matches(isDisplayed()));
+        onView(withId(R.id.tv_genre)).check(matches(withText(dummyTv.get(0).getGenre())));
+        onView(withId(R.id.tv_overview)).check(matches(isDisplayed()));
+        onView(withId(R.id.tv_overview)).check(matches(withText(dummyTv.get(0).getOverview())));
+
     }
 }
