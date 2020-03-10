@@ -46,7 +46,6 @@ public class HomeViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        //show 2 total pages.
-        return 2;
+        return TAB_TITLES.length;
     }
 }

@@ -8,21 +8,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.picodiploma.jetpackdicoding.R;
-import com.dicoding.picodiploma.jetpackdicoding.data.TvEntity;
+import com.dicoding.picodiploma.jetpackdicoding.data.source.remote.model.Tv;
 import com.dicoding.picodiploma.jetpackdicoding.ui.detail.tv.DetailTvActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
-    private List<TvEntity> listTv = new ArrayList<>();
+import static com.dicoding.picodiploma.jetpackdicoding.utils.Constant.IMG_URL;
 
-    void setTvData(List<TvEntity> listTv){
+public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
+    private List<Tv> listTv = new ArrayList<>();
+
+    void setTvData(List<Tv> listTv){
         if (listTv == null) return;
         this.listTv.clear();
         this.listTv.addAll(listTv);
@@ -31,14 +34,23 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
     @NonNull
     @Override
     public TvViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_content, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_catalogue, parent, false);
         return new TvViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TvViewHolder holder, int position) {
-        TvEntity tv = listTv.get(position);
+        Tv tv = listTv.get(position);
         holder.bind(tv);
+
+        holder.cvCatalogue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DetailTvActivity.class);
+                intent.putExtra("detail_tv_id", tv.getId());
+                v.getContext().startActivity(intent);
+            }
+        });
 
     }
 
@@ -48,37 +60,29 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
     }
 
     class TvViewHolder extends RecyclerView.ViewHolder {
-        final TextView tvName;
-        final TextView tvDate;
-        final TextView tvOverview;
-        final ImageView imgPoster;
+        private TextView tvName;
+        private TextView tvDate;
+        private ImageView imgPoster;
+        private CardView cvCatalogue;
 
         TvViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvName = itemView.findViewById(R.id.tv_title);
-            tvDate = itemView.findViewById(R.id.tv_date);
-            tvOverview = itemView.findViewById(R.id.tv_overview);
-            imgPoster = itemView.findViewById(R.id.img_poster);
+            tvName = itemView.findViewById(R.id.tv_item_title);
+            tvDate = itemView.findViewById(R.id.tv_item_date);
+            imgPoster = itemView.findViewById(R.id.img_item_poster);
+            cvCatalogue = itemView.findViewById(R.id.cv_catalogue);
         }
 
-        void bind(final TvEntity tv){
+        void bind(final Tv tv){
+            String thumbnail = IMG_URL + tv.getPosterPath();
+
             tvName.setText(tv.getName());
-            tvDate.setText(tv.getFirstAirDate());
-            tvOverview.setText(tv.getOverview());
+            tvDate.setText(tv.getFirstAirDate().split("-")[0]);
             Glide.with(itemView.getContext())
-                    .load(itemView.getResources().getIdentifier(tv.getPoster(),"drawable", itemView.getContext().getPackageName()))
+                    .load(thumbnail)
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(imgPoster);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(), DetailTvActivity.class);
-                    intent.putExtra(DetailTvActivity.EXTRA_DETAIL_TV, tv.getId());
-                    itemView.getContext().startActivity(intent);
-                }
-            });
         }
     }
 }

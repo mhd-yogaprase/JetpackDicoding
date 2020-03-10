@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,12 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.dicoding.picodiploma.jetpackdicoding.R;
-import com.dicoding.picodiploma.jetpackdicoding.data.MovieEntity;
-
-import java.util.List;
+import com.dicoding.picodiploma.jetpackdicoding.viewmodel.ViewModelFactory;
 
 public class MovieFragment extends Fragment {
     private RecyclerView rvMovie;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -32,20 +32,28 @@ public class MovieFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rvMovie = view.findViewById(R.id.rv_movie);
+        progressBar = view.findViewById(R.id.progressbar_home);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if (getActivity() != null) {
+            ViewModelFactory factory = ViewModelFactory.getInstance();
+            MovieViewModel movieViewModel = new ViewModelProvider(this, factory).get(MovieViewModel.class);
 
-        MovieViewModel movieViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(MovieViewModel.class);
-        List<MovieEntity> listMovie = movieViewModel.getMovies();
+            MovieAdapter movieAdapter = new MovieAdapter();
+            progressBar.setVisibility(View.VISIBLE);
+            movieViewModel.getMovies().observe(this, movies -> {
+                        progressBar.setVisibility(View.GONE);
+                        movieAdapter.setMoviesData(movies);
+                        movieAdapter.notifyDataSetChanged();
+                    }
+            );
 
-        MovieAdapter movieAdapter = new MovieAdapter();
-        movieAdapter.setMoviesData(listMovie);
-
-        rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvMovie.setHasFixedSize(true);
-        rvMovie.setAdapter(movieAdapter);
+            rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
+            rvMovie.setHasFixedSize(true);
+            rvMovie.setAdapter(movieAdapter);
+        }
     }
 }

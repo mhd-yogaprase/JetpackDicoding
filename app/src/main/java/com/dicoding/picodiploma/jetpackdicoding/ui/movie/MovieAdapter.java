@@ -8,21 +8,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.picodiploma.jetpackdicoding.R;
-import com.dicoding.picodiploma.jetpackdicoding.data.MovieEntity;
+import com.dicoding.picodiploma.jetpackdicoding.data.source.remote.model.Movie;
 import com.dicoding.picodiploma.jetpackdicoding.ui.detail.movie.DetailMovieActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-    private List<MovieEntity> listMovies = new ArrayList<>();
+import static com.dicoding.picodiploma.jetpackdicoding.utils.Constant.IMG_URL;
 
-    void setMoviesData(List<MovieEntity> listMovies){
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+    private List<Movie> listMovies = new ArrayList<>();
+
+    void setMoviesData(List<Movie> listMovies){
         if (listMovies == null) return;
         this.listMovies.clear();
         this.listMovies.addAll(listMovies);
@@ -31,14 +34,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_content, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_catalogue, parent, false);
         return new MovieViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        MovieEntity movie = listMovies.get(position);
+        Movie movie = listMovies.get(position);
         holder.bind(movie);
+
+        holder.cvCatalogue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DetailMovieActivity.class);
+                intent.putExtra("detail_movie_id", movie.getId());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -47,37 +59,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
-        final TextView tvTitle;
-        final TextView tvDate;
-        final TextView tvOverview;
-        final ImageView imgPoster;
+        private TextView tvTitle;
+        private TextView tvDate;
+        private ImageView imgPoster;
+        private CardView cvCatalogue;
 
         MovieViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvTitle = itemView.findViewById(R.id.tv_title);
-            tvDate = itemView.findViewById(R.id.tv_date);
-            tvOverview = itemView.findViewById(R.id.tv_overview);
-            imgPoster = itemView.findViewById(R.id.img_poster);
+            tvTitle = itemView.findViewById(R.id.tv_item_title);
+            tvDate = itemView.findViewById(R.id.tv_item_date);
+            imgPoster = itemView.findViewById(R.id.img_item_poster);
+            cvCatalogue = itemView.findViewById(R.id.cv_catalogue);
         }
 
-        void bind(final MovieEntity movie){
+        void bind(final Movie movie){
+            String thumbnail = IMG_URL + movie.getPosterPath();
+
             tvTitle.setText(movie.getTitle());
-            tvDate.setText(movie.getReleaseDate());
-            tvOverview.setText(movie.getOverview());
+            tvDate.setText(movie.getReleaseDate().split("-")[0]);
             Glide.with(itemView.getContext())
-                    .load(itemView.getResources().getIdentifier(movie.getPoster(), "drawable", itemView.getContext().getPackageName()))
+                    .load(thumbnail)
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(imgPoster);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(), DetailMovieActivity.class);
-                    intent.putExtra(DetailMovieActivity.EXTRA_DETAIL_MOVIE, movie.getId());
-                    itemView.getContext().startActivity(intent);
-                }
-            });
         }
     }
 }
