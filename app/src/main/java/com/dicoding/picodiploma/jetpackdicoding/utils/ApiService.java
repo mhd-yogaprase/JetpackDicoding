@@ -25,6 +25,14 @@ public interface ApiService {
             @Query("page") int page
     );
 
+    @GET("movie/{type}")
+    Call<MovieResponse> getMovieType(
+            @Path("type") String movieType,
+            @Query("api_key") String apiKey,
+            @Query("language") String language,
+            @Query("page") int page
+    );
+
     @GET("movie/{id}")
     Call<MovieDetail> getMovieDetail(
             @Path("id") int movieId,

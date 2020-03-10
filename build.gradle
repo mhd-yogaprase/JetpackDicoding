@@ -44,4 +44,6 @@ ext {
 
     retrofitVersion = '2.7.1'
     archLifecycleVersion = '2.1.0'
+
+    roomVersion = '2.2.3'
 }
